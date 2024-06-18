@@ -48,6 +48,7 @@ const ProductListScreen = () => {
       <View style={commonStyles.contentContainer}>
         <SearchInput
           testID="search-text-input"
+          accessibilityHint="Al escribir en está caja de texto, se procederá a buscar el producto en el sistema"
           onSearch={value => {
             if (value) handleSearchProduct(value);
           }}
@@ -61,11 +62,12 @@ const ProductListScreen = () => {
             data={isSearcing ? searchedProducts : products}
             onSelectProduct={onSelectProduct}
           />
-          <></>
         </Skeleton>
       </View>
       <FooterContent>
         <StyledButton
+          accessibilityLabel="Botón agregar producto"
+          accessibilityHint="Botón para agregar un nuevo producto en el servicio existente"
           testID="navigate-add-product"
           title={I18n.get('ADD')}
           onPress={() => navigation.navigate('ProductFormScreen')}

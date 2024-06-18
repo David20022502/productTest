@@ -20,6 +20,7 @@ const searchInput = (props: TextInputProps & SearchInputProps) => {
     <TextInput
       {...props}
       returnKeyType="search"
+      accessibilityRole="search"
       value={searchValue}
       onChangeText={value => {
         setSearchValue(value);

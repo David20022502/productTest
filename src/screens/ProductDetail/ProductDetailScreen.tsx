@@ -52,6 +52,9 @@ const ProductDetailScreen: React.FC<ProductDetailScreenProps> = ({
     <View style={commonStyles.screenContainer}>
       <HeaderApp />
       <ScrollView
+        accessible={true}
+        accessibilityLabel="En esta sección encontrarás la información del producto que selecionaste"
+        accessibilityRole="scrollbar"
         style={commonStyles.contentContainer}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={commonStyles.scrollViewStyle}>
@@ -92,12 +95,14 @@ const ProductDetailScreen: React.FC<ProductDetailScreenProps> = ({
       <FooterContent>
         <StyledButton
           title={I18n.get('EDIT')}
+          accessibilityHint="Botón para editar el producto seleccionado"
           type="secondary"
           onPress={() => {
             navigation?.navigate('ProductFormScreen', {financialProduct});
           }}
         />
         <StyledButton
+          accessibilityHint="Botón para eliminar el producto seleccionado"
           title={I18n.get('DELETE')}
           testID="delete-financial-product"
           type="error"

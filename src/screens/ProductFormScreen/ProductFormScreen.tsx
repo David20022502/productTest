@@ -115,11 +115,19 @@ const ProductFormScreen: React.FC<AddProductProps> = ({navigation, route}) => {
           submitForm,
         }) => (
           <ScrollView
+            accessible={true}
+            accessibilityRole="scrollbar"
+            accessibilityLabel={`Formulario para ${
+              financialProduct
+                ? 'editar el producto selecionado'
+                : 'agregar un nuevo producto '
+            } en el sistema`}
             style={commonStyles.contentContainer}
             showsVerticalScrollIndicator={false}>
             <Text style={style.title}>{I18n.get('REGISTER_FORM')}</Text>
             <StyledTextInput
               testID="product-id-text-input"
+              accessibilityHint="Caja de texto para ingresar el id del producto"
               label={I18n.get('ID')}
               error={errors.id && touched.id ? errors.id : null}
               value={values.id}
@@ -131,6 +139,7 @@ const ProductFormScreen: React.FC<AddProductProps> = ({navigation, route}) => {
             />
             <StyledTextInput
               testID="product-name-text-input"
+              accessibilityHint="Caja de texto para ingresar el nombre del producto"
               label={I18n.get('NAME')}
               error={errors.name && touched.name ? errors.name : null}
               value={values.name}
@@ -141,6 +150,7 @@ const ProductFormScreen: React.FC<AddProductProps> = ({navigation, route}) => {
             />
             <StyledTextInput
               testID="product-description-text-input"
+              accessibilityHint="Caja de texto para ingresar la descripción del producto"
               label={I18n.get('DESCRIPTION')}
               error={
                 errors.description && touched.description
@@ -155,6 +165,7 @@ const ProductFormScreen: React.FC<AddProductProps> = ({navigation, route}) => {
             />
             <StyledTextInput
               testID="product-logo-text-input"
+              accessibilityHint="Caja de texto para ingresar el link de la imágen del producto"
               label={I18n.get('LOGO')}
               error={errors.logo && touched.logo ? errors.logo : null}
               value={values.logo}
@@ -167,6 +178,7 @@ const ProductFormScreen: React.FC<AddProductProps> = ({navigation, route}) => {
             />
             <StyledTextInput
               testID="product-delivery-date-text-input"
+              accessibilityHint="Caja de texto para ingresar la fecha de liberación del producto"
               label={I18n.get('DELIVERY_DATE')}
               error={
                 errors.date_release && touched.date_release
@@ -193,6 +205,7 @@ const ProductFormScreen: React.FC<AddProductProps> = ({navigation, route}) => {
             />
             <StyledTextInput
               testID="product-revision-date-text-input"
+              accessibilityHint="Caja de texto para ingresar la fecha de revisión del producto, este campo se autocompleta al ingresar la fecha de liberación"
               label={I18n.get('REVISION_DATE')}
               error={
                 errors.date_revision && touched.date_revision
@@ -211,6 +224,9 @@ const ProductFormScreen: React.FC<AddProductProps> = ({navigation, route}) => {
             <View style={style.buttonContainer}>
               <StyledButton
                 testID="submit-form-button"
+                accessibilityHint={`Botón para ${
+                  financialProduct ? 'editar' : 'guardar'
+                } el producto en el sistema`}
                 title={I18n.get('SEND')}
                 onPress={submitForm}
                 isLoading={isLoading}
@@ -218,6 +234,7 @@ const ProductFormScreen: React.FC<AddProductProps> = ({navigation, route}) => {
               />
               <StyledButton
                 testID="reset-form-button"
+                accessibilityHint={`Botón para limpiar el formulario`}
                 title={I18n.get('RESET')}
                 type="secondary"
                 onPress={() => resetForm()}

@@ -7,7 +7,7 @@ import {faBank} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 const headerApp = () => {
   return (
-    <View>
+    <View accessible={true} accessibilityRole="header">
       <View style={style.container}>
         <FontAwesomeIcon
           icon={faBank}

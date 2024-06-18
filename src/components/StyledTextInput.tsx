@@ -12,6 +12,7 @@ const styledTextInput = (props: StyledTextInput & TextInputProps) => {
       <Text style={style.labelStyle}>{props.label}</Text>
       <TextInput
         {...props}
+        accessible={true}
         maxLength={props.maxLength || 75}
         style={[
           style.containerInputStyle,

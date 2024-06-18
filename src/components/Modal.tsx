@@ -36,6 +36,8 @@ const modal = ({
         <View style={style.mainContainer}>
           <View style={style.headerContent}>
             <TouchableOpacity
+              accessible={true}
+              accessibilityLabel="Botón para cancelar y cerrar el modal de confirmación"
               testID="close-delete-confirm-modal"
               onPress={() => onClose()}>
               <FontAwesomeIcon icon={faClose} size={25} />
@@ -48,6 +50,7 @@ const modal = ({
           </View>
           <View style={style.buttonContentStyle}>
             <StyledButton
+              accessibilityHint="Botón para confirmar la acción por hacerse"
               testID="delete-confirm-financial-product"
               title={I18n.get('CONFIRM')}
               onPress={onConfirm}
@@ -55,6 +58,7 @@ const modal = ({
               disabled={isLoading}
             />
             <StyledButton
+              accessibilityHint="Botón para cancelar la acción por hacerse"
               title={I18n.get('CANCEL')}
               type="secondary"
               onPress={onClose}

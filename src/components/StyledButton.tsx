@@ -32,6 +32,8 @@ const styledButton = (props: StyledButtonProps & TouchableOpacityProps) => {
   return (
     <TouchableOpacity
       {...props}
+      accessible={true}
+      accessibilityRole="button"
       onPress={props.onPress}
       style={[
         style.buttonContainer,

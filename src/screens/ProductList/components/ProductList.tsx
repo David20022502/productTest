@@ -12,11 +12,14 @@ const ProductList = ({data, onSelectProduct}: FinancialDataRenderProps) => {
   return (
     <>
       {data?.length > 0 ? (
-        <View testID="1111" style={style.container}>
+        <View style={style.container}>
           <FlatList
             data={data}
             renderItem={item => (
               <TouchableOpacity
+                accessible={true}
+                accessibilityRole="button"
+                accessibilityHint="Al precionar en este item accederás a la pantalla de más información del producto"
                 testID="select-product-list"
                 onPress={() => {
                   if (onSelectProduct) onSelectProduct(item.item);
