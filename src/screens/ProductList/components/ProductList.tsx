@@ -15,6 +15,7 @@ const ProductList = ({data, onSelectProduct}: FinancialDataRenderProps) => {
         <View style={style.container}>
           <FlatList
             data={data}
+            keyExtractor={item => item.id}
             renderItem={item => (
               <TouchableOpacity
                 accessible={true}

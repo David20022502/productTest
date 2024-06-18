@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {CustomUtils} from '../../../utils/CustomConstans';
 import {I18n} from 'aws-amplify';
@@ -6,7 +6,7 @@ import {FinancialProductType} from '../../../interface/ProductListScreen';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faArrowRight} from '@fortawesome/free-solid-svg-icons/faArrowRight';
 
-export const ProductListItem = (props: FinancialProductType) => {
+export const ProductListItem = memo((props: FinancialProductType) => {
   return (
     <View style={style.container}>
       <View>
@@ -18,7 +18,7 @@ export const ProductListItem = (props: FinancialProductType) => {
       <FontAwesomeIcon icon={faArrowRight} />
     </View>
   );
-};
+});
 const style = StyleSheet.create({
   container: {
     width: '100%',
