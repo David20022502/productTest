@@ -25,7 +25,7 @@ const ProductListScreen = () => {
     handleSearchProduct,
     error,
     handleReloadProducts,
-  } = useProducts({loadInitialProducts: true});
+  } = useProducts();
   const {handeReloadProductsTag, reloadProducts} = useContext(AppContext);
   const navigation =
     useNavigation<

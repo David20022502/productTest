@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {commonStyles} from '../../constants/commonStyles';
 import {I18n} from 'aws-amplify';
@@ -7,7 +7,6 @@ import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {StackNavigationProp} from '@react-navigation/stack';
 import AppContext from '../../context/App/AppContext';
-import useProducts from '../../hooks/products/useProducts';
 import {
   HeaderApp,
   StyledButton,
@@ -15,7 +14,8 @@ import {
 } from '../../utils/CustomExports';
 import {MainStackNavigator} from '../../navigation/AppNavigation.d';
 import {ProdutDetailProps} from '../../navigation/AppNavigation.d';
-import { FinancialProductType } from '../../interface/Product';
+import {FinancialProductType} from '../../interface/Product';
+import {productService} from '../../services/product/ProductService';
 type AddProductProps = {
   navigation?: StackNavigationProp<MainStackNavigator, 'ProductFormScreen'>;
   route?: {
@@ -24,21 +24,17 @@ type AddProductProps = {
 };
 const ProductFormScreen: React.FC<AddProductProps> = ({navigation, route}) => {
   const {financialProduct} = route?.params || {};
-  const {handleUpdateProduct, isLoading, setIsLoading, handleCreateProduct} =
-    useProducts({
-      loadInitialProducts: false,
-    });
-
   const {errorShowHandler, handeReloadProductsTag} = useContext(AppContext);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {}, []);
   const onSubmitForm = useCallback(
     async (values: FinancialProductType) => {
       try {
         setIsLoading(true);
         if (financialProduct) {
-          await handleUpdateProduct(values);
+          await productService.updateProduct(values);
         } else {
-          await handleCreateProduct(values);
+          await productService.addProduc(values);
         }
         handeReloadProductsTag(true);
         navigation?.navigate('ProductListScreen');

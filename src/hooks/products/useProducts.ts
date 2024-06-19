@@ -2,11 +2,7 @@ import {useCallback, useEffect, useMemo, useState} from 'react';
 import {I18n} from 'aws-amplify';
 import {productService} from '../../services/product/ProductService';
 import {FinancialProductType} from '../../interface/Product';
-interface useProductsProps {
-  loadInitialProducts?: boolean;
-}
-const useProducts = (props: useProductsProps) => {
-  const {loadInitialProducts} = props || {};
+const useProducts = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState<FinancialProductType[]>([]);
   const [searchedProducts, setSearchedProducts] = useState<
@@ -18,10 +14,8 @@ const useProducts = (props: useProductsProps) => {
     return isSearcing ? searchedProducts : products;
   }, [isSearcing, searchedProducts, products]);
   useEffect(() => {
-    if (loadInitialProducts) {
-      handleGetProducts();
-    }
-  }, [loadInitialProducts]);
+    handleGetProducts();
+  }, []);
   const handleGetProducts = useCallback(async () => {
     try {
       setIsLoading(true);
@@ -52,27 +46,6 @@ const useProducts = (props: useProductsProps) => {
     },
     [products],
   );
-  const handleUpdateProduct = async (values: FinancialProductType) => {
-    const existingProduct = await productService.existingProduct(values.id);
-    if (!existingProduct) {
-      throw new Error('PRODUCT_NOT_EXISIT');
-    }
-    await productService.updateProduct(values);
-  };
-  const handleCreateProduct = async (values: FinancialProductType) => {
-    const existingProduct = await productService.existingProduct(values.id);
-    if (existingProduct) {
-      throw new Error('DUPLICATE_PRODUCT');
-    }
-    await productService.addProduc(values);
-  };
-  const handleDeleteProduct = async (id: string) => {
-    const existingProduct = await productService.existingProduct(id);
-    if (!existingProduct) {
-      throw new Error('PRODUCT_NOT_EXISIT');
-    }
-    await productService.deleteProduct(id);
-  };
   const handleReloadProducts = () => {
     setError(undefined);
     handleGetProducts();
@@ -85,11 +58,7 @@ const useProducts = (props: useProductsProps) => {
     isLoading,
     products: finalProducts,
     error,
-    handleCreateProduct,
-    setIsLoading,
     handleCancelSearch,
-    handleDeleteProduct,
-    handleUpdateProduct,
     handleGetProducts,
     handleReloadProducts,
     handleSearchProduct,

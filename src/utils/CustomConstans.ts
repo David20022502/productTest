@@ -1,15 +1,15 @@
 import {Dimensions, PixelRatio} from 'react-native';
 
-class CustomConstantsClass {
-  envVars = {
+export const CustomUtils = {
+  envVars: {
     productServerHost:
-      'https://tribu-ti-staffing-desarrollo-afangwbmcrhucqfh.z01.azurefd.net/ipf-msa-productosfinancieros',// Para manejar una ruta dinámica, o claves secretas, se puede usar las variables de entorno de expo, secrets keys,  
-  };
-  dimensions = {
+      'https://tribu-ti-staffing-desarrollo-afangwbmcrhucqfh.z01.azurefd.net/ipf-msa-productosfinancieros', // Para manejar una ruta dinámica, o claves secretas, se puede usar las variables de entorno de expo, secrets keys,
+  },
+  dimensions: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
-  };
-  colors = {
+  },
+  colors: {
     gray: '#1f3467',
     primary: '#ffdd00',
     secondary: '#e9e9e9',
@@ -19,38 +19,37 @@ class CustomConstantsClass {
     dark: 'dark',
     disabled: '#CCCCCC',
     disabledBackGround: '#e6e6e6',
-  };
-  regex = {
+  },
+  regex: {
     formatDate: /^\d{4}-\d{2}-\d{2}$/,
-  };
-  getPxH(dimension: number) {
+  },
+  getPxH: function (dimension: number) {
     return PixelRatio.roundToNearestPixel(
       (Dimensions.get('window').height * dimension) / 100,
     );
-  }
-  getPxW(dimension: number) {
+  },
+  getPxW: function (dimension: number) {
     return PixelRatio.roundToNearestPixel(
       (Dimensions.get('window').width * dimension) / 100,
     );
-  }
-  formatDate(date?: string) {
+  },
+  formatDate: function (date?: string) {
     return new Date(date || 0).toISOString().split('T')[0];
-  }
-  increaseYearsToDate(date: string, years: number) {
+  },
+  increaseYearsToDate: function (date: string, years: number) {
     if (!this.isValidDate(date)) return new Date().toISOString();
     const validDate = new Date(date);
     validDate.setFullYear(validDate.getFullYear() + years);
     return validDate.toISOString();
-  }
-  isValidDate(date: string) {
+  },
+  isValidDate: function (date: string) {
     if (!this.regex.formatDate.test(date)) return false;
     const [year, month, day] = date.split('-').map(item => Number(item));
     return year >= 1970 && month > 0 && month < 13 && day > 0 && day < 32;
-  }
-  isDateGreaterEqualThan(date: Date, minDate?: Date) {
+  },
+  isDateGreaterEqualThan: function (date: Date, minDate?: Date) {
     return (
       date >= (minDate || new Date(new Date().toISOString().split('T')[0]))
     );
-  }
-}
-export const CustomUtils = new CustomConstantsClass();
+  },
+};

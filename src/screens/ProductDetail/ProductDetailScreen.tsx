@@ -7,7 +7,6 @@ import {I18n} from 'aws-amplify';
 import {ProductInfoRow} from './components/ProductInfoRow';
 import {ScrollView} from 'react-native-gesture-handler';
 import AppContext from '../../context/App/AppContext';
-import useProducts from '../../hooks/products/useProducts';
 import {
   CustomModal,
   FooterContent,
@@ -16,6 +15,7 @@ import {
 } from '../../utils/CustomExports';
 import {MainStackNavigator} from '../../navigation/AppNavigation.d';
 import {ProdutDetailProps} from '../../navigation/AppNavigation.d';
+import {productService} from '../../services/product/ProductService';
 type ProductDetailScreenProps = {
   navigation?: StackNavigationProp<MainStackNavigator, 'ProductDetailScreen'>;
   route: {
@@ -27,15 +27,13 @@ const ProductDetailScreen: React.FC<ProductDetailScreenProps> = ({
   route,
 }) => {
   const {financialProduct} = route?.params;
-  const {handleDeleteProduct, isLoading, setIsLoading} = useProducts({
-    loadInitialProducts: false,
-  });
   const [modalDeleteVisible, setModalDeleteVisible] = useState(false);
   const {errorShowHandler, handeReloadProductsTag} = useContext(AppContext);
+  const [isLoading, setIsLoading] = useState(false);
   const onDeleteFinancialProduct = useCallback(async () => {
     try {
       setIsLoading(true);
-      await handleDeleteProduct(financialProduct.id);
+      await productService.deleteProduct(financialProduct.id);
       setModalDeleteVisible(false);
       handeReloadProductsTag(true);
       navigation?.navigate('ProductListScreen');

@@ -1,4 +1,4 @@
-import { FinancialProductType } from '../../interface/Product';
+import {FinancialProductType} from '../../interface/Product';
 import {RequestHandler} from '../../modules/RequestHandler';
 import {CustomUtils} from '../../utils/CustomConstans';
 
@@ -22,6 +22,10 @@ class ProductServiceClass {
     return data as FinancialProductType[];
   }
   async addProduc(values: FinancialProductType) {
+    const existingProduct = await this.existingProduct(values.id);
+    if (existingProduct) {
+      throw new Error('DUPLICATE_PRODUCT');
+    }
     const {data} = await this.productRequest.post({
       pathUrl: this.pathUrl,
       body: values,
@@ -29,6 +33,10 @@ class ProductServiceClass {
     return data;
   }
   async deleteProduct(id: string) {
+    const existingProduct = await this.existingProduct(id);
+    if (!existingProduct) {
+      throw new Error('PRODUCT_NOT_EXISIT');
+    }
     const {data} = await this.productRequest.delete({
       pathUrl: this.pathUrl,
       keyDelete: {
@@ -38,6 +46,10 @@ class ProductServiceClass {
     return data;
   }
   async updateProduct(values: FinancialProductType) {
+    const existingProduct = await this.existingProduct(values.id);
+    if (!existingProduct) {
+      throw new Error('PRODUCT_NOT_EXISIT');
+    }
     const {data} = await this.productRequest.put({
       pathUrl: this.pathUrl,
       body: values,
