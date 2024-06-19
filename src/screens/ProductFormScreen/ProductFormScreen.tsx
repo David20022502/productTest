@@ -1,24 +1,21 @@
 import React, {useCallback, useContext, useEffect} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {commonStyles} from '../../constants/commonStyles';
 import {I18n} from 'aws-amplify';
 import {CustomUtils} from '../../utils/CustomConstans';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {FinancialProductType} from '../../interface/ProductListScreen';
-import {
-  MainStackNavigator,
-  ProdutDetailProps,
-} from '../../interface/AppNavigation';
 import AppContext from '../../context/App/AppContext';
-import useProducts from '../../hooks/useProducts';
-import {ErrorCatch} from '../../interface/Interface';
+import useProducts from '../../hooks/products/useProducts';
 import {
   HeaderApp,
   StyledButton,
   StyledTextInput,
 } from '../../utils/CustomExports';
+import {MainStackNavigator} from '../../navigation/AppNavigation.d';
+import {ProdutDetailProps} from '../../navigation/AppNavigation.d';
+import { FinancialProductType } from '../../interface/Product';
 type AddProductProps = {
   navigation?: StackNavigationProp<MainStackNavigator, 'ProductFormScreen'>;
   route?: {
@@ -54,7 +51,7 @@ const ProductFormScreen: React.FC<AddProductProps> = ({navigation, route}) => {
     [financialProduct],
   );
   return (
-    <View style={commonStyles.screenContainer}>
+    <SafeAreaView style={commonStyles.screenContainer}>
       <HeaderApp />
       <Formik
         initialValues={{
@@ -244,7 +241,7 @@ const ProductFormScreen: React.FC<AddProductProps> = ({navigation, route}) => {
           </ScrollView>
         )}
       </Formik>
-    </View>
+    </SafeAreaView>
   );
 };
 export default ProductFormScreen;

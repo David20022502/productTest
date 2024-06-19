@@ -2,7 +2,7 @@ import '../../../__mocks__/axios';
 import {test, describe} from '@jest/globals';
 import {RenderResult, render, userEvent} from '@testing-library/react-native';
 import ProductDetailScreen from './ProductDetailScreen';
-import {MainStackNavigator} from '../../interface/AppNavigation';
+import {MainStackNavigator} from '../../navigation/AppNavigation.d';
 import {StackNavigationProp} from '@react-navigation/stack';
 jest.useFakeTimers();
 describe('Mostrar los detalles del producto', () => {

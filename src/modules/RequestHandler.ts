@@ -5,7 +5,7 @@ import {
   PostRequestProps,
   PutRequestProps,
   RequestHandlerProps,
-} from '../interface/RequestHandler';
+} from './RequestHandler.d';
 export class RequestHandler {
   private appClient;
   constructor(props: RequestHandlerProps) {
@@ -16,8 +16,8 @@ export class RequestHandler {
         ...props.headers,
       },
     });
+    this.appClient.defaults.timeout = props.timeout || 3000;
   }
-
   async post(props: PostRequestProps) {
     return await this.appClient.post(`${props.pathUrl}`, props.body, {
       headers: props.headers,

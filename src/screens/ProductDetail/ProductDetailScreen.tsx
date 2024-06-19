@@ -1,24 +1,21 @@
 import React, {useCallback, useContext, useState} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {commonStyles} from '../../constants/commonStyles';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {CustomUtils} from '../../utils/CustomConstans';
 import {I18n} from 'aws-amplify';
 import {ProductInfoRow} from './components/ProductInfoRow';
 import {ScrollView} from 'react-native-gesture-handler';
-import {
-  MainStackNavigator,
-  ProdutDetailProps,
-} from '../../interface/AppNavigation';
 import AppContext from '../../context/App/AppContext';
-import useProducts from '../../hooks/useProducts';
-import {ErrorCatch} from '../../interface/Interface';
+import useProducts from '../../hooks/products/useProducts';
 import {
   CustomModal,
   FooterContent,
   HeaderApp,
   StyledButton,
 } from '../../utils/CustomExports';
+import {MainStackNavigator} from '../../navigation/AppNavigation.d';
+import {ProdutDetailProps} from '../../navigation/AppNavigation.d';
 type ProductDetailScreenProps = {
   navigation?: StackNavigationProp<MainStackNavigator, 'ProductDetailScreen'>;
   route: {
@@ -49,7 +46,7 @@ const ProductDetailScreen: React.FC<ProductDetailScreenProps> = ({
     }
   }, [financialProduct]);
   return (
-    <View style={commonStyles.screenContainer}>
+    <SafeAreaView style={commonStyles.screenContainer}>
       <HeaderApp />
       <ScrollView
         accessible={true}
@@ -118,7 +115,7 @@ const ProductDetailScreen: React.FC<ProductDetailScreenProps> = ({
           setModalDeleteVisible(false);
         }}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 export default ProductDetailScreen;

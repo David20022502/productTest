@@ -1,6 +1,6 @@
-import {FinancialProductType} from '../interface/ProductListScreen';
-import {RequestHandler} from '../modules/RequestHandler';
-import {CustomUtils} from '../utils/CustomConstans';
+import { FinancialProductType } from '../../interface/Product';
+import {RequestHandler} from '../../modules/RequestHandler';
+import {CustomUtils} from '../../utils/CustomConstans';
 
 class ProductServiceClass {
   private productRequest;

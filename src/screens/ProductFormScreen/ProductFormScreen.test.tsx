@@ -7,7 +7,7 @@ import {
 } from '@testing-library/react-native';
 import ProductFormScreen from './ProductFormScreen';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {MainStackNavigator} from '../../interface/AppNavigation';
+import {MainStackNavigator} from '../../navigation/AppNavigation.d';
 beforeEach(() => {
   jest.useFakeTimers();
 });
@@ -48,6 +48,7 @@ jest.mock('axios', () => {
         get: mockedAxiosActionGet,
         post: mockedAxiosAction,
         delete: mockedAxiosAction,
+        defaults: {timeout: 0},
       };
     }),
   };

@@ -1,10 +1,13 @@
 import React, {useCallback, useMemo, useReducer} from 'react';
 import AppContext from './AppContext';
-import {AppContextModel, AppStateProps} from '../../interface/AppContext';
 import {AppReducer} from './AppReducer';
 import {AppContextActionTypes, appContextProps} from './AppTypes';
 import {Alert} from 'react-native';
 import {I18n} from 'aws-amplify';
+import {AppContextModel} from './appcontext.d';
+interface AppStateProps {
+  children: React.ReactNode;
+}
 export const AppState = ({children}: AppStateProps) => {
   const initialValues = useMemo<AppContextModel>(() => appContextProps, []);
   const [state, dispatch] = useReducer(AppReducer, initialValues);

@@ -1,9 +1,10 @@
-import {useCallback, useEffect, useState} from 'react';
-import {productService} from '../services/ProductService';
-import {FinancialProductType} from '../interface/ProductListScreen';
-import {ErrorCatch, useProductsProps} from '../interface/Interface';
+import {useCallback, useEffect, useMemo, useState} from 'react';
 import {I18n} from 'aws-amplify';
-
+import {productService} from '../../services/product/ProductService';
+import {FinancialProductType} from '../../interface/Product';
+interface useProductsProps {
+  loadInitialProducts?: boolean;
+}
 const useProducts = (props: useProductsProps) => {
   const {loadInitialProducts} = props || {};
   const [isLoading, setIsLoading] = useState(false);
@@ -13,6 +14,9 @@ const useProducts = (props: useProductsProps) => {
   >([]);
   const [isSearcing, setIsSearcing] = useState(false);
   const [error, setError] = useState();
+  const finalProducts = useMemo(() => {
+    return isSearcing ? searchedProducts : products;
+  }, [isSearcing, searchedProducts, products]);
   useEffect(() => {
     if (loadInitialProducts) {
       handleGetProducts();
@@ -79,10 +83,8 @@ const useProducts = (props: useProductsProps) => {
   };
   return {
     isLoading,
-    products,
+    products: finalProducts,
     error,
-    isSearcing,
-    searchedProducts,
     handleCreateProduct,
     setIsLoading,
     handleCancelSearch,

@@ -1,12 +1,11 @@
-import React, {useContext, useEffect} from 'react';
-import {View} from 'react-native';
+import React, {useCallback, useContext, useEffect} from 'react';
+import {SafeAreaView, View} from 'react-native';
 import {commonStyles} from '../../constants/commonStyles';
 import {I18n} from 'aws-amplify';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {MainStackNavigator} from '../../interface/AppNavigation';
-import useProducts from '../../hooks/useProducts';
-import {FinancialProductType} from '../../interface/ProductListScreen';
+import {MainStackNavigator} from '../../navigation/AppNavigation.d';
+import useProducts from '../../hooks/products/useProducts';
 import AppContext from '../../context/App/AppContext';
 import {
   FooterContent,
@@ -17,15 +16,14 @@ import {
   StyledButton,
 } from '../../utils/CustomExports';
 import ProductList from './components/ProductList';
+import {FinancialProductType} from '../../interface/Product';
 const ProductListScreen = () => {
   const {
     isLoading,
     products,
     handleCancelSearch,
     handleSearchProduct,
-    isSearcing,
     error,
-    searchedProducts,
     handleReloadProducts,
   } = useProducts({loadInitialProducts: true});
   const {handeReloadProductsTag, reloadProducts} = useContext(AppContext);
@@ -39,11 +37,16 @@ const ProductListScreen = () => {
       handeReloadProductsTag(false);
     }
   }, [reloadProducts]);
-  const onSelectProduct = (financialProduct: FinancialProductType) => {
-    navigation.navigate('ProductDetailScreen', {financialProduct});
-  };
+  const onSelectProduct = useCallback(
+    (financialProduct: FinancialProductType) => {
+      navigation.navigate('ProductDetailScreen', {financialProduct});
+    },
+    [],
+  );
   return (
-    <View testID="product-list-screen" style={commonStyles.screenContainer}>
+    <SafeAreaView
+      testID="product-list-screen"
+      style={commonStyles.screenContainer}>
       <HeaderApp />
       <View style={commonStyles.contentContainer}>
         <SearchInput
@@ -58,10 +61,7 @@ const ProductListScreen = () => {
         />
         <Spacer y={7} />
         <Skeleton {...{isLoading, error, onReload: handleReloadProducts}}>
-          <ProductList
-            data={isSearcing ? searchedProducts : products}
-            onSelectProduct={onSelectProduct}
-          />
+          <ProductList data={products} onSelectProduct={onSelectProduct} />
         </Skeleton>
       </View>
       <FooterContent>
@@ -73,7 +73,7 @@ const ProductListScreen = () => {
           onPress={() => navigation.navigate('ProductFormScreen')}
         />
       </FooterContent>
-    </View>
+    </SafeAreaView>
   );
 };
 

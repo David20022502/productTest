@@ -1,6 +1,6 @@
 import React, {Suspense, lazy} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {MainStackNavigator} from '../interface/AppNavigation';
+import {MainStackNavigator} from './AppNavigation.d';
 import {I18n} from 'aws-amplify';
 import {es_EC} from '../translates/es';
 import {en_US} from '../translates/en';

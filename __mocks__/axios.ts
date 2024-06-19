@@ -33,6 +33,7 @@ jest.mock('axios', () => {
         post: mockedAxiosAction,
         delete: mockedAxiosAction,
         put: mockedAxiosAction,
+        defaults: {timeout: 0},
       };
     }),
   };

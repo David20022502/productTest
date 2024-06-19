@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {ErrorModel} from '../interface/Interface';
 import Loading from './Loading';
 import ErrorResult from './ErrorResult';
 interface SkeletonProps {

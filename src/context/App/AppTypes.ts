@@ -1,4 +1,4 @@
-import {AppContextModel} from '../../interface/AppContext';
+import {AppContextModel} from './AppContext.d';
 
 export enum AppContextActionTypes {
   LOADING_HANDLER = 'LOADING_HANDLER',

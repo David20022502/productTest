@@ -1,8 +1,5 @@
-import {
-  AppContextActionType,
-  AppContextModel,
-} from '../../interface/AppContext';
 import {AppContextActionTypes} from './AppTypes';
+import {AppContextModel} from './appcontext.d';
 
 export const AppReducer = (
   prevState: AppContextModel,
@@ -18,3 +15,12 @@ export const AppReducer = (
     }
   }
 };
+type AppContextActionType =
+  | {
+      type: AppContextActionTypes.RELOAD_PRODUCTS;
+      payload: boolean;
+    }
+  | {
+      type: AppContextActionTypes.LOADING_HANDLER;
+      payload: boolean;
+    };

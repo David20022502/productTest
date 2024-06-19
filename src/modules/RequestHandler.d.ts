@@ -1,8 +1,9 @@
 export interface RequestHandlerProps {
+  timeout?: number;
   baseUrl: string;
   headers?: {[key: string]: any};
 }
-interface MainRequestType {
+export interface MainRequestType {
   pathUrl: string;
   headers?: {[key: string]: any};
 }
@@ -12,7 +13,6 @@ export interface GetRequestProps extends MainRequestType {
 export interface PostRequestProps extends MainRequestType {
   body: {[key: string]: any};
 }
-
 export interface PutRequestProps extends MainRequestType {
   body: {[key: string]: any};
 }
